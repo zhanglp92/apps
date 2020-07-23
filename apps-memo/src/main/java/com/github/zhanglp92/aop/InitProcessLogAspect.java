@@ -19,7 +19,7 @@ public class InitProcessLogAspect {
     /**
      * 定义切点的位置
      */
-    @Pointcut("@annotation(initProcessLog)")
+    @Pointcut("execution(* *(..)) && @annotation(initProcessLog)")
     public void serviceStatistics(InitProcessLog initProcessLog) {
     }
 
@@ -33,30 +33,30 @@ public class InitProcessLogAspect {
     public Object doAround(ProceedingJoinPoint proceedingJoinPoint, InitProcessLog initProcessLog) throws Throwable {
         String kind = proceedingJoinPoint.getSignature().toLongString();
 
-        log.info("({})doAround before --> ", kind);
+        log.info("{} doAround before --> ", kind);
         Object response = proceedingJoinPoint.proceed();
-        log.info("({})doAround after --> ", kind);
+        log.info("{} doAround after --> ", kind);
         return response;
     }
 
     @Before(value = "serviceStatistics(initProcessLog)")
     public void doBefore(JoinPoint joinPoint, InitProcessLog initProcessLog) {
-        log.info("({})doBefore --> ", joinPoint.getKind());
+        log.info("{} doBefore --> ", joinPoint.getSignature().toLongString());
     }
 
     @After(value = "serviceStatistics(initProcessLog)")
     public void doAfter(JoinPoint joinPoint, InitProcessLog initProcessLog) {
-        log.info("doAfter --> ");
+        log.info("{} doAfter --> ", joinPoint.getSignature().toLongString());
     }
 
 
     @AfterReturning(value = "serviceStatistics(initProcessLog)")
     public void doAfterReturning(JoinPoint joinPoint, InitProcessLog initProcessLog) {
-        log.info("doAfterReturning --> ");
+        log.info("{} doAfterReturning --> ", joinPoint.getSignature().toLongString());
     }
 
     @AfterThrowing(value = "serviceStatistics(initProcessLog)")
     public void doAfterThrowing(JoinPoint joinPoint, InitProcessLog initProcessLog) {
-        log.info("doAfterThrowing --> ");
+        log.info("{} doAfterThrowing --> ", joinPoint.getSignature().toLongString());
     }
 }
