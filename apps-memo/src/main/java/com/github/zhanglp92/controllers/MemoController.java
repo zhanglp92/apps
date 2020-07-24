@@ -18,6 +18,9 @@ public class MemoController {
     @Resource(name = "memoServiceImpl")
     private MemoService memoService;
 
+    @Resource(name = "memoServiceImpl2")
+    private MemoService memoService2;
+
     @RequestMapping(value = "/hello", method = RequestMethod.GET)
     @ResponseBody
     public Map<String, Object> hello() {

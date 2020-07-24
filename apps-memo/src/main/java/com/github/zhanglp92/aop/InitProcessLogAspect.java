@@ -8,7 +8,7 @@ import org.aspectj.lang.annotation.*;
 import org.springframework.stereotype.Component;
 
 /**
- * bean初始化日志打印
+ * bean初始化日志打印, 切面/代理的委托类
  */
 
 @Aspect
@@ -39,10 +39,19 @@ public class InitProcessLogAspect {
         return response;
     }
 
+    /**
+     * 多个注解都会被执行
+     */
     @Before(value = "serviceStatistics(initProcessLog)")
     public void doBefore(JoinPoint joinPoint, InitProcessLog initProcessLog) {
         log.info("{} doBefore --> ", joinPoint.getSignature().toLongString());
     }
+
+    @Before(value = "serviceStatistics(initProcessLog)")
+    public void doBefore2(JoinPoint joinPoint, InitProcessLog initProcessLog) {
+        log.info("{} doBefore2 --> ", joinPoint.getSignature().toLongString());
+    }
+
 
     @After(value = "serviceStatistics(initProcessLog)")
     public void doAfter(JoinPoint joinPoint, InitProcessLog initProcessLog) {
