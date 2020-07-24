@@ -27,10 +27,8 @@ public class MemoServiceImpl implements MemoService, BeanNameAware {
 //    @InitProcessLog
     public String memo() {
 //        this.memoInnerInvoke1();
-//        this.memoInnerInvoke2();
-
-        this.performance((int) 1E5);
-
+        this.memoInnerInvoke2();
+//        this.performance((int) 1E5);
         return this.memoName;
     }
 
@@ -67,7 +65,6 @@ public class MemoServiceImpl implements MemoService, BeanNameAware {
     /**
      * 内部this指针调用(不生效解法2)
      */
-    @InitProcessLog
     private String memoInnerInvoke2() {
         MemoServiceImpl memoService = (MemoServiceImpl) AopContext.currentProxy();
 
